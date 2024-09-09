@@ -1,0 +1,109 @@
+### To ctreate cluster--
+
+
+
+##eksctl create cluster --name cluster --region us-east-1 --nodegroup-name nodegroup1 --nodes 2 --nodes-min 2 --nodes-max 3 --node-type t3.xlarge --vpc-public-subnets=subnet-041f0e3410fde6a3e,subnet-0b17c6fca1c7f6c8a,subnet-0a51d3d0e345dc88e --version 1.29
+
+
+#eksctl create cluster --name Rinc-cluster --region us-east-1 --nodegroup-name Rinc-nodegroup1 --nodes 2 --nodes-min 2 --nodes-max 3 --node-type t3.xlarge --vpc-public-subnets=subnet-0b50ddaee2708a164,subnet-05f243aea35a74550,subnet-05ea203e9ea864722 ---Create cluster in public-sub
+
+###eksctl create cluster --name private-cluster --region ap-south-1 --nodegroup-name Rinc-nodegroup --node-type t3.medium --nodes 2 --nodes-min 2 --nodes-max 2 --node-private-networking --subnets subnet-0b50ddaee2708a164,subnet-05f243aea35a74550,subnet-05ea203e9ea864722  ---To create cluster in private subnet
+
+ ###(eksctl create cluster --name your-eks-cluster-name --region your-aws-region --nodegroup-name Rinc-nodegroup --node-type t3.medium --nodes 2 --nodes-min 2 --nodes-max 2 --node-private-networking --subnets subnet-xxxxxxxxxxxxxxxxx,subnet-yyyyyyyyyyyyyyyyy,subnet-zzzzzzzzzzzzzzzzz)
+
+###eksctl create nodegroup --cluster Rinc-cluster-2 --name Rinc-nodegroup-1 --node-type t3.medium --nodes 2 --nodes-min 2 --nodes-max 3 --node-private-networking --region us-east-1
+--Create nodegroup in private subnet
+
+
+###eksctl create cluster --name my-cluster --region us-east-1 --nodegroup-name my-nodegroup --nodes 2 --nodes-min 2 --nodes-max 3 --node-type t2.medium
+---Create cluster with all network componenet
+
+
+## Connect with API server to communicate with cluster--  aws eks update-kubeconfig --region us-east-1 --name my-cluster-1
+
+
+##aws eks describe-cluster --name eks-cluster1 --region ap-south-1   ----Describe cluster
+
+
+
+##aws eks --region ap-south-1 describe-nodegroup --cluster-name eks-cluster1 --nodegroup-name EksNodegroup-nnjoFBirhMTC ----Describe nodegroup
+
+
+
+
+## To know the continer in pod--kubectl get pod <pod-name> -o json | ConvertFrom-Json | Select-Object -ExpandProperty spec | Select-Object -ExpandProperty containers | Measure-Object | Select-Object -ExpandProperty Count
+
+##To list cluster:
+
+aws eks list-clusters
+
+docker tag my-image:latest my-image:v1.0
+
+docker push my-image:v1.0
+
+
+kubectl delete deployment/my-deployment
+
+aws sts get-caller-identity    --to check aws witch aws account is configure
+
+
+eksctl create nodegroup --cluster cluster-name --name nodegroup-name --node-type t3.xlarge --nodes 2 --nodes-min 1 --nodes-max 4
+
+
+eksctl get nodegroups --cluster=Rinc-cluster
+
+
+
+
+eksctl delete cluster --name my-cluster
+
+
+###eksctl delete nodegroup \   --cluster my-cluster \   --name my-mng \   --region region-code
+
+eksctl delete nodegroup --cluster private-cluster --name Rinc-nodegroup  --region ap-south-1
+
+
+docker pull 637423608548.dkr.ecr.us-east-1.amazonaws.com/my-repo:latest  pull from ecr
+
+#Test connectivity of rds and eks --telnet endpoint 3306  check this from node of eks
+
+#First install telnet
+
+##journalctl -u kubelet ---get logs of kubelet
+
+###journalctl -u kubelet grep | node      ----to see kubelet logs when node is down that means when it is in unknown state 
+
+## when it shows oom --means out of memory
+
+## Kubelet is responsible for managing worker node and communicating with the API server.
+
+
+##when we want our application is on Kubernetes application should be microservices nature that means one application should not dependant on another application because one app depend on another app then that appl will be monolithic so we can not use feature of Kubernetes like cluster autoscaler,HPA,Mulitiple Replicas. When appl is on production then node configuration should be m5.xlarge series.  
+
+##kubectl exec nginx-deployment-d6459649d-9skzn -c nginx -- /bin/sh -c "kill 1" ---this command is to restart continer
+
+after exec pod name  then -c continer name 
+
+
+
+##When we want to change node configuration then first create nodes with new configuration:--eksctl create <newnodegroup> --cluster my-cluster --name <nameofnewng> --node-type t2.medium --nodes 1 --nodes-min 1 --nodes-max 2
+
+----eksctl create nodegroup --cluster UAT-Cluster --name UAT-Nodegroup-New --node-type t3.medium --nodes 2 --nodes-min 2 --nodes-max 3 --region ap-south-1
+
+##Delete old nodes  -- kubectl drain <node-name> --ignore-daemonsets --delete-local-data   ---delete old nodes
+
+##eksctl delete nodegroup --cluster=my-cluster --name=old-nodegroup-name
+
+##eksctl create cluster --name my-windows-cluster --region ap-south-1  --managed --nodegroup-name windows-nodes --node-type t3.large --nodes 2 --node-ami-family WindowsServer2019FullContainer---Create eks cluster for windows nodegroup
+
+
+aws eks update-nodegroup-config --cluster-name UAT-Cluster --nodegroup-name nodegroup1 --scaling-config minSize=1,maxSize=2,desiredSize=1----Command for reduce nodes from nodegrp
+
+
+aws eks delete-nodegroup --cluster-name [CLUSTER_NAME] --nodegroup-name [NODEGROUP_NAME] --command for deleting cluster with ng
+
+
+
+
+
+
